@@ -1,39 +1,31 @@
-var updateQueue = function () {
-    $.getJSON("queue-size.php")
-        .done(function (queue) {
-            $('#queue-size').html(queue.size);
-            $('#platform-state').attr("src", "img/success.png");
-        })
-        .fail(function (jqxhr, textStatus, error) {
-            $('#queue-size').html("---");
-            $('#platform-state').attr("src", "img/error.png");
-        });
+var update = function () {
+    $.getJSON("/status", function (status) {
+        setState(status['data.webifier.de'], $('#data-state'), $('#data-count'));
+        setState(status['www.webifier.de'], $('#platform-state'), $('#queue-size'));
+        setState(status['power.webifier.de'], $('#power-platform-state'), $('#power-queue-size'));
+    });
 };
-updateQueue();
-setInterval(updateQueue, 60000);
-var updatePowerQueue = function () {
-    $.getJSON("power-queue-size.php")
-        .done(function (queue) {
-            $('#power-queue-size').html(queue.size);
-            $('#power-platform-state').attr("src", "img/success.png");
-        })
-        .fail(function (jqxhr, textStatus, error) {
-            $('#power-queue-size').html("---");
-            $('#power-platform-state').attr("src", "img/error.png");
-        });
-};
-updatePowerQueue();
-setInterval(updatePowerQueue, 60000);
-var updateData = function () {
-    $.getJSON("data-count.php")
-        .done(function (data) {
-            $('#data-count').html(data.size);
-            $('#data-state').attr("src", "img/success.png");
-        })
-        .fail(function (jqxhr, textStatus, error) {
-            $('#data-count').html("---");
-            $('#data-state').attr("src", "img/error.png");
-        });
-};
-updateData();
-setInterval(updateData, 60000);
+
+function setState(status, image, entries) {
+    switch (status.status) {
+        case 'success':
+            entries.html(status.entries);
+            image.attr("src", "img/success.png");
+            break;
+        case 'warning':
+            entries.html(status.entries);
+            image.attr("src", "img/warning.png");
+            break;
+        case 'error':
+            entries.html("---");
+            image.attr("src", "img/error.png");
+            break;
+    }
+}
+
+setInterval(update, 60000);
+
+$('#reload').click(function (e) {
+    e.preventDefault();
+    update();
+});

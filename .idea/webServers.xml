@@ -5,7 +5,7 @@
       <webServer id="18e42414-9fb9-49cc-8b53-f96d56d74665" name="sp-codes.de" url="http://sp-codes.de">
         <fileTransfer host="sp-codes.de" port="21">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" />
+            <advancedOptions dataProtectionLevel="Private" showHiddenFiles="true" />
           </advancedOptions>
           <option name="port" value="21" />
         </fileTransfer>
