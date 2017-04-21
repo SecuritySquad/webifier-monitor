@@ -11,7 +11,6 @@ function print_image($status) {
 function print_entries($status) {
 	echo isset($status['entries']) ? $status['entries'] : '---';
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +49,8 @@ function print_entries($status) {
                         <li><a href="https://power.webifier.de" target="_blank">power.webifier.de</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="https://www.webifier.de" target="_blank">www.webifier.de</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="https://statistics.webifier.de" target="_blank">statistics.webifier.de</a></li>
                     </ul>
                 </li>
             </ul>
